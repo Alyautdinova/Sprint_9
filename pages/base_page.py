@@ -44,4 +44,8 @@ class BasePage:
     # метод получения текущего урла
     def get_current_url(self):
         return self.driver.current_url
+
+    # метод получения текущего урла с ожиданием
+    def is_current_url(self, url):
+        return self.wait.until(expected_conditions.url_contains(url))
     
