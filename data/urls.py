@@ -3,4 +3,5 @@ class Urls:
     REGISTRATION_URL = BASE_URL + "signup"
     LOGIN_URL = BASE_URL + "signin"
     RECIPES_URL = BASE_URL + "recipes"
+    CREATE_RECIPES_URL = RECIPES_URL + "/create"
     
