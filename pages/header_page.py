@@ -10,4 +10,8 @@ class HeaderPage(BasePage):
     # метод нажатия на кнопку "Войти"
     def click_sigin_button(self):
         self.click(HeaderLocators.sigin_button)
+
+    # метод отображения кнопки "Выход"
+    def is_visible_logout_button(self):
+        return self.find(HeaderLocators.logout_button).is_displayed()
     
