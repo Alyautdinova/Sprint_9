@@ -24,6 +24,12 @@ class BasePage:
     def send_keys(self, locator, text):
         self.wait.until(expected_conditions.visibility_of_element_located(locator)).send_keys(text)
 
+    # метод ввода текста в поле с ожиданием
+    def send_keys_js(self, locator, text):
+        file_input = self.wait.until(expected_conditions.presence_of_element_located(locator))
+        self.driver.execute_script("arguments[0].style.display = 'block';", file_input)
+        file_input.send_keys(text)
+
     # метод нажатия на элемент с ожидаем кликабельности
     def click(self, locator):
         self.wait.until(expected_conditions.element_to_be_clickable(locator)).click()

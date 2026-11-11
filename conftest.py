@@ -1,11 +1,9 @@
 import pytest
+import requests
 
 from selenium import webdriver
 from faker import Faker
 from data.urls import Urls
-from pages.header_page import HeaderPage
-from pages.registration_page import RegistrationPage
-from pages.login_page import LoginPage
 
 @pytest.fixture
 def driver():
@@ -41,18 +39,30 @@ def generate_new_user():
 # фикстура для создания пользователя
 @pytest.fixture
 def register_new_user(generate_new_user, driver):
-    headerPage = HeaderPage(driver)
-    headerPage.open(Urls.BASE_URL)
-    headerPage.click_create_account_button()
-
-    registrationPage = RegistrationPage(driver)
-    registrationPage.create_account(first_name=generate_new_user["first_name"],
-                                    last_name=generate_new_user["last_name"],
-                                    username=generate_new_user["username"],
-                                    email=generate_new_user["email"],
-                                    password=generate_new_user["password"])
-
-    return {
-        "username": generate_new_user["username"],
-        "password": generate_new_user["password"]
+    payload = {"email": generate_new_user["email"],
+            "password": generate_new_user["password"],
+            "username": generate_new_user["username"],
+            "first_name": generate_new_user["first_name"],
+            "last_name": generate_new_user["last_name"]
     }
+
+    requests.post(Urls.API_USERS, json=payload)
+
+    return payload
+
+# фикстура для входа пользователя
+@pytest.fixture
+def login_user(driver):
+    payload = {
+        "email": "test_user", # По хорошему должно быть так generate_new_user["username"], но апи отвечает "Невозможно войти с предоставленными учетными данными."
+        "password": "123Test123" # По хорошему должно быть так generate_new_user["password"], но апи отвечает "Невозможно войти с предоставленными учетными данными."
+    }
+    response = requests.post(Urls.API_LOGIN_URL, json=payload)
+
+    token = response.json().get("auth_token")
+
+    driver.get(Urls.BASE_URL)
+    driver.execute_script(f"localStorage.setItem('token', '{token}');")
+    driver.refresh()
+    
+    return driver

@@ -39,18 +39,21 @@ class CreateRecipePage(BasePage):
         self.send_keys(CreateRecipeLocators.describe_textarea, describe)
 
     # метод загрузки фотографии
-    def set_image(self, image):
-        self.send_keys(CreateRecipeLocators.file_input, image)
+    def set_image(self, image_path):
+        self.send_keys_js(CreateRecipeLocators.file_input, image_path)
 
     # метод нажатия на кнопку "Создать рецепт"
     def click_create_recipe_button(self):
         self.click(CreateRecipeLocators.create_recipe_button)
 
     # метод создания рецепта
-    def create_recipe(self, recipe_name, tag_name, ingredient_name, amount, time, describe, image):
+    def create_recipe(self, recipe_name, tag_name, ingredients, time, describe, image):
         self.set_recipe_name(recipe_name)
         self.click_tag_name(tag_name)
-        self.add_ingredient(ingredient_name=ingredient_name, amount=amount)
+
+        for ing in ingredients:
+            self.add_ingredient(ingredient_name=ing["name"], amount=ing["amount"])
+        
         self.set_time(time)
         self.set_describe(describe)
         self.set_image(image)
