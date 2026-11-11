@@ -1,0 +1,4 @@
+"DESCRIPTION","DURATION IN MS","NAME","PARENT SUITE","START TIME","STATUS","STOP TIME","SUB SUITE","SUITE","TEST CLASS","TEST METHOD"
+"Проверяем, что можем создать аккаунт с корректным вводом всех полей","2891","Создание аккаунта","tests","2026-11-11","passed","2026-11-11","TestRegistration","test_registration","",""
+"Проверяем, что можем войти в аккаунт с корректными username и пароль","3167","Вход в аккаунт","tests","2026-11-11","passed","2026-11-11","TestLogin","test_login","",""
+"Проверяем, что рецепт создается","4658","Создание рецепта","tests","2026-11-11","passed","2026-11-11","TestCreateRecipe","test_create_recipe","",""
