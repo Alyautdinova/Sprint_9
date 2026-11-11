@@ -31,3 +31,5 @@ allure generate target/allure-results -o target/allure-report --clean
 # 3. Открыть отчёт локально
 allure open target/allure-report
 ```
+### Успешный пайплайн GitHub Actions
+![Успешный пайплайн](docs/pipline.png)
