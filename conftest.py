@@ -4,14 +4,23 @@ import requests
 from selenium import webdriver
 from faker import Faker
 from data.urls import Urls
+from selenium.webdriver.chrome.options import Options
 
 @pytest.fixture
 def driver():
-    chrome_options = webdriver.ChromeOptions()
-    driver = webdriver.Chrome(options=chrome_options)
-
+    options = Options()
+    # Для работы в Docker без графического интерфейса
+    options.add_argument("--headless=new")
+    options.add_argument("--no-sandbox")
+    options.add_argument("--disable-dev-shm-usage")
+    
+    # Подключаемся к Selenoid, а не запускаем локальный Chrome
+    driver = webdriver.Remote(
+        command_executor="http://selenoid:4444/wd/hub",
+        options=options
+    )
+    
     yield driver
-
     driver.quit()
 
 # фикстура для генерации пользователя
