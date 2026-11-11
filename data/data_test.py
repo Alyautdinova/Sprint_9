@@ -11,5 +11,5 @@ RECIPE_DATA = {
         {"name": "соль", "amount": "5"},
         {"name": "сыр", "amount": "50"}
     ],
-    "image_path": os.path.join(os.path.dirname(os.path.abspath(__file__)), "арепа.jpg")
+    "image_path": os.path.join(os.path.dirname(os.path.abspath(__file__)), "arepa.jpg")
 }
